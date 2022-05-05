@@ -1,8 +1,18 @@
 import smtplib
 from email.message import EmailMessage
+import re
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 465
+
+def sendEmail(addr):
+    reg = "^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$"
+    if bool(re.match(reg, addr)):
+        smtp.send_message(message)
+        print("정상적으로 메일이 발송되었습니다.")
+    else:
+        print("유효한 이메일 주소가 아닙니다.")
+
 
 message = EmailMessage()
 message.set_content("충성충성^^7")
@@ -13,10 +23,6 @@ message["To"] = "ksjoon28@naver.com"
 
 smtp = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT)
 
-try:
-    smtp.login("royoet@gmail.com", "password")
-    smtp.send_message(message)
-    smtp.quit()
-    print("정상적으로 메일이 발송되었습니다.")
-except: 
-    print("메일 발송에 실패하였습니다.")
+smtp.login("royoet@gmail.com", "password")
+sendEmail("ksjoon28@naver.com")
+smtp.quit()
