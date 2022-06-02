@@ -1,0 +1,28 @@
+{{freepost.title}}
+{{freepost.date}}
+{{freepost.body}}
+
+{% if freepost.image %}
+    <img src="{{freepost.image.url}}" alt='' width="250px" height="150px">
+{% endif %} 
+
+{% for comment in freepost.freecomment_set.all %} 
+    {{ comment.date }} 
+    {{ comment.author }}
+    {{ comment }}
+    {% if request.user == comment.author %} 
+        <a href="{% url 'comment_delete' freepost.id comment.id %}">삭제</a>
+    {% endif %}
+
+{% endfor %}
+
+<form method="POST" action="{% url 'comment' freepost.id %}" id="comment_create">
+    {% csrf_token %} 
+    {{ comment_form }}
+    <input type="submit" value="댓글작성">
+</form>
+
+{% if request.user == freepost.author %} 
+<a href="{% url 'update' freepost.id %}">수정</a>
+<a href="{% url 'delete' freepost.id %}">삭제</a>
+{% endif %} 

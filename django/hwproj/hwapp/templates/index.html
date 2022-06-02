@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+
+
+{% block content %}
+<div style="text-align:center;">
+    <table style="margin-left:auto; margin-right:auto;">
+        <thead>
+            <tr>
+                <th width="60%">글 제목</th>
+                <th width="20%">작성 날짜</th>
+                <th widht="20%">작성자</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for freepost in freepost_index %}
+            <tr>
+                <td><a href="{% url 'detail' freepost.id %}">{{freepost.title}}</a></td>
+                <td>{{ freepost.date }}</td>
+                <td>{{ freepost.author }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
